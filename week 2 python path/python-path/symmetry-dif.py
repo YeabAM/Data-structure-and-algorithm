@@ -1,0 +1,16 @@
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+SizeM=input()
+M=input()
+M=M.split()
+M=list(map(int,M))
+M=set(M)
+SizeN=input()
+N=input()
+N=N.split()
+N=list(map(int,N))
+N=set(N)
+SymDif=M.difference(N).union(N.difference(M))
+SymDif=list(SymDif)
+SymDif.sort()
+for i in SymDif:
+    print(i)
