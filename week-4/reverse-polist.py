@@ -1,4 +1,3 @@
-Red, [1/13/22 6:22 PM]
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
         stack = []
