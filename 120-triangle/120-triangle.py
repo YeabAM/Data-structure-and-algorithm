@@ -1,13 +1,10 @@
 class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -> int:
-        memo = dict()
-        def dfs(i, j):
-            if i == len(triangle):
-                return 0
-            if (i, j) in memo:
-                return memo[(i, j)]
-            
-            memo[(i, j)] = triangle[i][j] + min(dfs(i+1, j), dfs(i+1, j+1))
-            return memo[(i, j)]
-            
-        return triangle[0][0] + min(dfs(1, 0), dfs(1, 1))
+        dp = triangle[-1]
+        
+        for row in range(len(triangle) - 2, -1, -1):
+            for col in range(len(triangle[row])):
+                dp[col] = min( dp[col], dp[col + 1]) + triangle[row][col] 
+        
+        return dp[0]
+        
