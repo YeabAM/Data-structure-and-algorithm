@@ -1,20 +1,14 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         
-        count = defaultdict(list)
+        pair = dict()
         
-        for i,n in enumerate(nums):       
-            count[n].append(i)  
-        
-        for i,n in enumerate(nums):
-            if (target - n) in count: 
-                if (2*n) == target:
-                    if len(count[n]) == 2:
-                        return count[n]
-                    else:
-                        continue
-                else:
-                    return [i, count[target-n][0]]
+        for i, n in enumerate(nums):
+            if n in pair:
+                return [pair[n],i]
+            else:
+                pair[target-n] = i
+            
                 
             
                 
