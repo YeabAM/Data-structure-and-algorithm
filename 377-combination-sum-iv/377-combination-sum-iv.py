@@ -1,24 +1,13 @@
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
+        dp = [0] * (target + 1)
         
-        memo = {}
-        def backt(summ):
-            if summ == target:
-                return 1
-            if summ > target:
-                return 0
-            if summ in memo:
-                return memo[summ]
-            count = 0   
-            
-            for num in nums: 
-                if summ + num <= target:
-                    count += backt(summ + num)
-                    
-        
-            memo[summ] = count        
-            return memo[summ]  
+        dp[0] = 1
+        for i in range(target + 1):
+            for val in nums:
+                if val + i <= target:
+                    dp[i+val] += dp[i]
         
         
-        return backt(0)
+        return dp[-1]
         
