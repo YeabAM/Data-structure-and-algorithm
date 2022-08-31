@@ -2,26 +2,27 @@ class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
         incoming = defaultdict(list)
         outgoing = defaultdict(int)
-        queue = deque()
-        ans = []
-        
+        safeNodes = []
         for i in range(len(graph)):
             outgoing[i] = len(graph[i])
-            for j in graph[i]:
-                incoming[j].append(i)
+            
+            for j in range(len(graph[i])):
+                incoming[graph[i][j]].append(i)
+                
+        queue = deque([])
         
-        for i in range(len(graph)):
-            if outgoing[i] == 0:
-                queue.append(i)
+        for node in outgoing:
+            if outgoing[node] == 0:
+                queue.append(node)
         
         while queue:
-            cur = queue.popleft()
-            ans.append(cur)
-            
-            for n in incoming[cur]:
-                outgoing[n] -= 1
-                if outgoing[n] == 0:
-                    queue.append(n)
-                
-        return sorted(ans)
+            curr = queue.popleft()
+            safeNodes.append(curr)
+            for node in incoming[curr]:
+                outgoing[node] -= 1
+                if outgoing[node] == 0:
+                    queue.append(node)
                     
+        return sorted(safeNodes)
+                    
+        
