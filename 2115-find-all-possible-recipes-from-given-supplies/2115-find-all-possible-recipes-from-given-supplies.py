@@ -1,34 +1,35 @@
 class Solution:
     def findAllRecipes(self, recipes: List[str], ingredients: List[List[str]], supplies: List[str]) -> List[str]:
-        ing = defaultdict(list)
-        incoming = defaultdict(int)
-        queue = deque()
-        ans = []
-        for i in range(len(ingredients)):
-            incoming[recipes[i]] = len(ingredients[i])
-            for j in range(len(ingredients[i])):
-                ing[ingredients[i][j]].append(recipes[i])
-                
-        for i in supplies:
-            queue.append(i)
+        recFor = defaultdict(list)
+        amountOfRec = defaultdict(int)
+        totalRec = set()
         
-        recipes = set(recipes)
+        for i in range(len(ingredients)):
+            amountOfRec[recipes[i]] = len(ingredients[i])
+            
+        for j in range(len(recipes)):
+            for ingr in ingredients[j]:
+                recFor[ingr].append(recipes[j])
+                
+        # print(recFor)
+        queue = deque(supplies)
         
         while queue:
-            # print(ing)
             curr = queue.popleft()
+            totalRec.add(curr) 
             # print(curr)
-            if curr in recipes:
-                ans.append(curr)
-            for n in ing[curr]:
-                incoming[n] -= 1
-                if incoming[n] == 0:
-                    queue.append(n)
-        
-        return ans
-                    
+            for recipe in recFor[curr]:
+                # print(recipe)
+                amountOfRec[recipe] -= 1
             
+                if amountOfRec[recipe] == 0:
+                    queue.append(recipe)
                 
-        
-        
+        # print(totalRec)         
+        return [rec for rec in recipes if rec in totalRec]
                 
+                
+                
+            
+            
+        
