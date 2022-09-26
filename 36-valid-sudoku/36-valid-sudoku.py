@@ -27,7 +27,7 @@ class Solution:
             for r in range(Rlimit, Rlimit + 3):
                 for c in range(Climit, Climit + 3):
                     # print(r, c,i,j, r != i , c != j)
-                    if r != i or c != j:
+                    if r != i and c != j:
                         # print(r,c, "in")
                         box.add(board[r][c])
                         
