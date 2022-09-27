@@ -1,20 +1,18 @@
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        count = 0
         
-        memo = {}
-        
-        def dp(i, total):
-            if (i, total) in memo:
-                return memo[(i, total)]
-            if i == len(nums):
-                if total == 0:
+        @lru_cache(None)
+        def backtrack(summ, idx):
+            nonlocal count
+            
+            if idx == len(nums):
+                if summ == target:
                     return 1
-                else:
-                    return 0
+                return 0
+            return (backtrack(summ + nums[idx], idx + 1) + backtrack(summ - nums[idx], idx + 1))
             
-            memo [(i, total)] = dp(i+1, total - nums[i]) + dp(i+1, total + nums[i])
-            
-            return memo[(i, total)]
         
-        return dp(0, target)
+        
+        return backtrack(0,0)
         
