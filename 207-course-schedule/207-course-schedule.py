@@ -1,30 +1,33 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        income = dict()
-        preqs = defaultdict(list)
+        indegree = defaultdict(int)
+        neigh = defaultdict(set)
         queue = deque()
         courses = []
-        for c in prerequisites:
-            income[c[0]] = 0
-            income[c[1]] = 0
         
-        for cour, pre in prerequisites:
-            preqs[pre].append(cour)
-            income[cour] += 1
+        for i in range(numCourses):
+            indegree[i] = 0
         
-        for cour in income:
-            if income[cour] == 0:
-                queue.append(cour)
-        
+        for dest, src in prerequisites:
+            neigh[src].add(dest)
+            indegree[dest] += 1
+            
+        for i in range(numCourses):
+            if indegree[i] == 0:
+                queue.append(i)
+                
         while queue:
             curr = queue.popleft()
             courses.append(curr)
-            for cour in preqs[curr]:
-                income[cour] -= 1
-                if income[cour] == 0:
-                    queue.append(cour)
+            
+            for des in neigh[curr]:
+                indegree[des] -= 1
+                if indegree[des] == 0:
+                    queue.append(des)
                     
-        return len(income) == len(courses)
+        return len(courses) == numCourses
+                
+                
             
         
         
