@@ -1,21 +1,30 @@
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        minn = ceil(sum(piles) / h)
+        maxx = max(piles)
         
-        minSpeed = ceil(sum(piles) / h)
-        maxSpeed = max(piles)
-        
-        while minSpeed < maxSpeed:
-            midSpeed = minSpeed + (maxSpeed - minSpeed) // 2
+        while minn <= maxx:
+            curr = minn + (maxx - minn) // 2
             total = 0
-            for p in piles:
-                total += ceil(p/midSpeed)
-                
-            if h >= total:
-                maxSpeed = midSpeed
+            ans = float('inf')
+            
+            # print(minn, maxx, "edge")
+            for pile in piles:
+                total += ceil(pile / curr)
+            
+            if total <= h:
+                ans = min(ans, curr)
+                maxx = curr - 1
                 
             else:
-                minSpeed = midSpeed + 1
+                minn = curr + 1
+            # else:
+            #     ans = min(ans, curr)
+            #     maxx = curr - 1
+             
+        return min(ans, minn)
                 
-                
-        return maxSpeed 
+            
+            
+        
         
