@@ -18,11 +18,12 @@ class Solution:
             
         
     def countAndSay(self, n: int) -> str:
-        if n == 1:
-            return '1'
+        curr = '1'
         
-        say = self.countAndSay(n - 1)
-        return self.count(say)
+        for _ in range(n - 1):
+            curr = self.count(curr)
+            
+        return curr
     
 
         
