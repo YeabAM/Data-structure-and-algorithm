@@ -7,35 +7,33 @@
 class Solution:
     def rob(self, root: Optional[TreeNode]) -> int:
         
-        def theif(isRobbed, node):
-            if not node:
-                return 0
-            if (isRobbed, node) in memo:
-                return memo[(isRobbed,node)]
-            
-            left, right = 0, 0
-            if not isRobbed:
-                left =  theif(True, node.left)
-                right =  theif(True, node.right)
-                
-                value1 = left + right + node.val
-                
-                left =  theif(False, node.left)
-                right =  theif(False, node.right)
-                
-                value2= left + right
-                # print(node.val, value1, value2)
-                memo[(isRobbed, node)] =  max(value1, value2)
-                return max(value1, value2)
-                
-            if isRobbed:
-                left =  theif(False, node.left)
-                right =  theif(False, node.right)
+        def theif(root):
+            if not root:
+                return (0, 0)
+
+            left = theif(root.left)
+            right = theif(root.right)
+            # (root.val + left[1] + right[1], max(left[0], left[1]) + max(right[0], right[1]))
+            return (root.val + left[1] + right[1], max(left) + max(right))
+
+        return max(theif(root))
     
-                memo[(isRobbed, node)] = left, right
-                return left + right
-                
-        memo = {}
-        return (theif(False, root))
-        # return max(theif(True, root), theif(False, root))
+    
+    
+    
+"""
+    Input: [3,4,5,1,3,null,1]
+ input tree            dp tree:
+     3                  [3+3+1,4+5]
+    / \                /        \
+   4   5            [4,3]      [5,1]
+  / \   \          /     \          \
+ 1   2   1      [1,0]    [2,0]     [1,0]
+                / \       /  \        /  \
+           [0,0] [0,0] [0,0] [0,0]  [0,0] [0,0]
+    
+"""
+
+    
+    
         
