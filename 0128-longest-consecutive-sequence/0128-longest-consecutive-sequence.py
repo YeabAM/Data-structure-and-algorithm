@@ -1,40 +1,19 @@
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        
-        if len(nums) <= 1:
-            return len(nums)
-        
-        parent = {}
-        count = defaultdict(int)
-        
-        for num in nums:
-            parent[num] = num
-        
-        def find(node):
-            if parent[node] == node:
-                return node
-            parent[node] = find(parent[node])
-            
-            return parent[node]
-        
-        def union(u, v):
-            p1, p2 = find(u), find(v)
-            
-            if p1 != p2:
-                parent[u] = parent[v]
-                
-        setNums = set(nums)
-        # print(sorted(list(setNums)))
-        for num in nums:
-            if num + 1 in setNums:
-                union(num, num + 1)
-                
-        for num in setNums:
-            count[find(num)] += 1
-
-        
-        return max(count.values())
-            
-                
-        
-        
+        if len(nums) == 0:
+            return 0
+        arr = nums
+        arr.sort()
+        nonDuplicate = [arr[0]]
+        for i in range(len(arr)):
+            if nonDuplicate[-1] != arr[i]:
+                nonDuplicate.append(arr[i])
+        left = right = 0
+        res = 1
+        while right < len(nonDuplicate):
+            while right+1 < len(nonDuplicate) and nonDuplicate[right] == nonDuplicate[right+1]-1:
+                right += 1
+            res = max(res, right-left+1)
+            right += 1
+            left = right
+        return res
