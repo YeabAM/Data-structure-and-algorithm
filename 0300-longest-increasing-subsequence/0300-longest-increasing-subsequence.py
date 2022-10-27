@@ -1,22 +1,12 @@
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
+        dp = [1]*len(nums)
+        answer = 1
         
-        def dp(index):
-            if index == len(nums) - 1:
-                return 1
-            if index in memo:
-                return memo[index]
-            run_max = 0
-            for i in range(index + 1, len(nums)):
-                
-                if nums[index] < nums[i]:
-                    run_max = max(run_max, dp(i))
+        for i in range(len(nums)-1, -1, -1):
+            for j in range(i + 1, len(nums)):
+                if nums[j] > nums[i]:
+                    dp[i] = max(dp[i], dp[j] + 1)
             
-            memo[index] = 1 + run_max
-            return memo[index]
-        longest = 0   
-        memo = {}
-        for i in range(len(nums)):
-            longest = max(longest, dp(i))
-            
-        return longest
+            answer = max(answer, dp[i])
+        return answer
