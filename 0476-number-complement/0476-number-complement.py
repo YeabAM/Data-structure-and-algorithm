@@ -1,18 +1,12 @@
 class Solution:
     def findComplement(self, num: int) -> int:
-        ans = 0
-        shiftCount = 0
+        bitValue = bin(num)
     
-        while num:
-            lastDigit = num & 1
-            
-            if not lastDigit:
-                ans |= 1 << shiftCount
-                
-            shiftCount += 1
-            num >>= 1
-            
-        return ans
+        power = len(bitValue) - 2
+        
+        temp = (2 ** power) - 1
+        
+        return (temp ^ num)
             
                 
             
