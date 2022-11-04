@@ -3,6 +3,7 @@ class Solution:
         l = 0
         answer = 0
         for r in range(len(nums)):
+            # print(answer)
             if nums[r] == 0:
                 k -= 1
             while k < 0 and l <= r:
@@ -10,5 +11,6 @@ class Solution:
                     k += 1
                 l += 1
             answer = max(answer, r-l+1)
+            print(l, r, answer)
 
         return answer
