@@ -1,28 +1,30 @@
 class Solution:
     def findAllRecipes(self, recipes: List[str], ingredients: List[List[str]], supplies: List[str]) -> List[str]:
-        recFor = defaultdict(list)
-        amountOfRec = defaultdict(int)
+        ingFor = defaultdict(list)
+        amountOfIng = defaultdict(int)
         totalRec = set()
         
+        #calculate incoming of each recipes
         for i in range(len(ingredients)):
-            amountOfRec[recipes[i]] = len(ingredients[i])
-            
+            amountOfIng[recipes[i]] = len(ingredients[i])
+        
+        #build graph from ingredinet to recipe
         for j in range(len(recipes)):
             for ingr in ingredients[j]:
-                recFor[ingr].append(recipes[j])
+                ingFor[ingr].append(recipes[j])
                 
-        # print(recFor)
+        print(ingFor)
         queue = deque(supplies)
         
         while queue:
             curr = queue.popleft()
             totalRec.add(curr) 
             # print(curr)
-            for recipe in recFor[curr]:
+            for recipe in ingFor[curr]:
                 # print(recipe)
-                amountOfRec[recipe] -= 1
+                amountOfIng[recipe] -= 1
             
-                if amountOfRec[recipe] == 0:
+                if amountOfIng[recipe] == 0:
                     queue.append(recipe)
                 
         # print(totalRec)         
