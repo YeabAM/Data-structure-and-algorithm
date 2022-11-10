@@ -7,7 +7,7 @@ class Solution:
         for i in range(len(points) - 1):
             x, y = points[i]
             slopeCount = {}
-            # print('-------------')
+        
             for j in range(i+1, len(points)):
                 x2, y2 = points[j]
                 
@@ -18,10 +18,10 @@ class Solution:
                     
                 currSlope = (y2 - y) / (x2 - x)
                 
-                # print('m', x, y, x2, y2, currSlope)
+        
                 
                 slopeCount[currSlope] = 1 + slopeCount.get(currSlope, 0)
-            # print(x, y, slopeCount)
+        
             currMax = 1 + max(slopeCount.values())  
             maxPoints = max(currMax, maxPoints)
             
