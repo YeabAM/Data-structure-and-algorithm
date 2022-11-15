@@ -11,7 +11,7 @@ class Solution(object):
                     r0 += dr
                     c0 += dc
 
-                    # If on the grid ...
+        
                     if 0 <= r0 < R and 0 <= c0 < C:
                         ans.append((r0, c0))
                         if len(ans) == R * C:
