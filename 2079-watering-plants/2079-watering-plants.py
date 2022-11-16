@@ -13,7 +13,6 @@ class Solution:
                 
             cur += plants[i]
             steps += 1
-            # print(i, cur, capacity, steps)
         
-        return max(steps, N)
+        return steps
         
