@@ -1,22 +1,25 @@
 class Solution:
     def numDistinct(self, s: str, t: str) -> int:
+        memo = {}
         
-        
-        @lru_cache(None)
-        def dp(i, j):
-            if j == len(t):
+        def match(ss, tt):
+            if (ss, tt) in memo:
+                return memo[(ss, tt)]
+            
+            if tt >= len(t):
                 return 1
             
-            if i == len(s):
+            if ss >= len(s) or len(s) - ss < len(t) - tt:
                 return 0
             
-            if s[i] == t[j]:
-                option1 = dp(i+1, j+1)
-                option2 = dp(i+1, j)
-                
-                return option1 + option2
+            isMatch = t[tt] == s[ss]
+            result = 0
             
-            return dp(i+1, j)
+            if isMatch:
+                result = match(ss + 1, tt + 1)
+            
+            result += match(ss + 1, tt)
+            memo[(ss, tt)] = result
+            return result
         
-        return dp(0, 0)
-        
+        return match(0, 0)
