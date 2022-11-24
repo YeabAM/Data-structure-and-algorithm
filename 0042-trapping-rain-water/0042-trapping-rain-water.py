@@ -7,33 +7,23 @@ class Solution:
         currMax = 0
         
         for i in range(size):
-            if height[i] >= currMax:
-                leftMax[i] = height[i]
-                currMax = height[i]
-            else:
-                leftMax[i] = currMax
+            leftMax[i] = currMax
+            currMax = max(height[i], currMax)
                 
         currMax = 0
                 
         for i in range(size -1 , -1, -1):
-            if height[i] >= currMax:
-                rightMax[i] = height[i]
-                currMax = height[i]
-            else:
-                rightMax[i] = currMax
+            rightMax[i] = currMax
+            currMax = max(height[i], currMax)
                 
         totalWater = 0
-        
-        
-        
+                
         for i in range(size):
+            h = min(leftMax[i], rightMax[i])
+            curr = height[i]
             
-            w = min(leftMax[i], rightMax[i])
-            h = height[i]
-            
-            totalWater += abs(w - h)
-            # print(i, leftMax[i], rightMax[i], totalWater)
-            
+            if curr < h:
+                totalWater += h - curr           
         return totalWater
         
         
