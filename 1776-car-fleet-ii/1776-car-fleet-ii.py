@@ -17,5 +17,6 @@ class Solution:
                 collideTime = (stack[-1][0] - position) / (speed - stack[-1][1])
                 stack.append((position, speed, collideTime))
                 result.append(collideTime)
+                
         result.reverse()
         return result
