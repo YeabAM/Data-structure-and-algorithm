@@ -12,9 +12,6 @@ class Solution:
             if not node:
                 return 0
             
-            if not node.right and not node.left:
-                maxSum[0] = max(maxSum[0], node.val)
-                return node.val
             
             left = dfs(node.left)
             right = dfs(node.right)
