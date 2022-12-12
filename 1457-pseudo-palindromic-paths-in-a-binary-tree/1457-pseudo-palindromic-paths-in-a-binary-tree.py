@@ -10,43 +10,25 @@ class Solution:
         
         count = [0]
         
-        def dfs(node, match, size):
-        
+        def dfs(node, match):
+            
+            if not node:
+                return
+            
+            match = match ^ (1 << node.val)
+            
             if not node.right and not node.left:
-                oddCount = 0
-                match[node.val - 1] += 1
-                size += 1
-                
-                
-                for i in range(9):
-                    if match[i] % 2:
-                        oddCount += 1
-                        
-                if size % 2 and oddCount == 1:
-                
+                if match & (match - 1) == 0:
                     count[0] += 1
-
-                else:
-                    if oddCount == 0:
-                    
-                        count[0] += 1
+                        
                         
             
-                return 
-            
-                            
-            match[node.val - 1] += 1
-            left = right = 0
-            
-            if node.left:
-                left = dfs(node.left, match.copy(), size + 1)
-            if node.right:
-                right = dfs(node.right, match.copy(), size + 1)
+            left = dfs(node.left, match)
+            right = dfs(node.right, match)
             
 
-            return
         
-        dfs(root, [0,0,0,0,0,0,0,0,0], 0)
+        dfs(root, 0)
         
         return count[0]
         
