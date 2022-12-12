@@ -1,14 +1,23 @@
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
-        dp = [[0 for _ in range(amount+1)] for _ in range(len(coins) + 1)]
         
-        dp[0][0] = 1
+        @lru_cache(None)
         
-        for r in range(1, len(dp)):
-            for c in range(len(dp[0])):
-                prevSum = c - coins[r-1]
-                dp[r][c] = dp[r-1][c]
-                if  prevSum >= 0:
-                    dp[r][c] += dp[r][prevSum]
+        def dp(idx, total):
+            
+            if idx >= len(coins):
+                return 0
+            
+            if total == amount:
+                return 1
+            
+            count = 0
+            for i in range(idx, len(coins)):
+                if total + coins[i] <= amount:
+                    count += dp(i, total + coins[i])
                     
-        return dp[len(coins)][amount]
+            return count
+        
+        return dp(0,0)
+                
+        
