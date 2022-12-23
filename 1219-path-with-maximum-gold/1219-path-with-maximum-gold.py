@@ -1,36 +1,41 @@
 class Solution:
     def getMaximumGold(self, grid: List[List[int]]) -> int:
+        direction = [(0,1),(0,-1),(1,0),(-1,0)]
+        rows = len(grid)
+        cols = len(grid[0])
+        
+        in_bound = lambda r, c: 0 <= r < rows and 0 <= c < cols
+        
+        max_gold = 0
         
         
         
-        in_bound = lambda r,c : 0 <= r < len(grid) and 0 <= c < len(grid[0])
+        def find_path(r, c, visited):
+            curr_gold = 0
+            
+            visited.add((r, c))
+            
+        
+            
+            
+            for dx, dy in direction:
+                nr, nc = r + dx, c + dy
+    
+                if in_bound(nr, nc) and (nr, nc) not in visited and grid[nr][nc] != 0:
+                    
+                    curr_gold = max(curr_gold, find_path(nr,nc,visited) + grid[nr][nc])
+                    
+            visited.remove((r, c))
+            
+            return curr_gold
+    
+            
         
         
-        def dfs(nr, nc):
-            
-            if not in_bound(nr, nc) or grid[nr][nc] == 0:
-                return 0
-            if (nr, nc) in visited:
-                return 0
-            
-            visited.add((nr, nc))
-            
-            
-           
-            total = max(dfs(nr + 1, nc) , dfs(nr - 1, nc) , dfs(nr, nc+1), dfs(nr, nc-1))  + grid[nr][nc]
-            
-            visited.remove((nr,nc))
-            
-            return total
-                
-        self.gold = 0    
-        visited = set()
-        for r in range(len(grid)):
-            for c in range(len(grid[0])):
+        for r in range(rows):
+            for c in range(cols):
                 if grid[r][c] != 0:
-                    self.gold = max(self.gold, dfs(r,c))  
-
-
-        return (self.gold)
-            
+                    max_gold = max(max_gold, find_path(r, c, set()) + grid[r][c])
+                
         
+        return max_gold
