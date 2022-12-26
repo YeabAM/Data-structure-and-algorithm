@@ -14,15 +14,3 @@ class Solution:
             
     
         return maxJump >= len(nums) - 1
-            
-            
-            
-            
-                    
-            
-                
-            
-            
-        
-        
-            
