@@ -5,6 +5,7 @@ class Solution:
         '''
         prices = [float('inf') for _ in range(n)]
         prices[src] = 0 
+        
         for _ in range(k + 1):
             tempPrice = prices.copy()
             
