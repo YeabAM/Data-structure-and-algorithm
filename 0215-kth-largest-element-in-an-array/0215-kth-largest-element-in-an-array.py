@@ -10,11 +10,4 @@ class Solution:
                 
         return heapq.heappop(heap)
     
-        
-#         for i in range(len(nums)):
-#             if len(heap) < k:
-#                 heapq.heappush(heap, nums[i])
-#             elif heap[0] < nums[i]:
-#                 heapq.heapreplace(heap,nums[i])
-        
-#         return heap[0]
+       
