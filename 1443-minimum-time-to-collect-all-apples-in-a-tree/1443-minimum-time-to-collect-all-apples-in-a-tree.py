@@ -1,5 +1,7 @@
 class Solution:
     def minTime(self, n: int, edges: List[List[int]], hasApple: List[bool]) -> int:
+        if not edges:
+            return 0
         graph = defaultdict(list)
         
         for v1, v2 in edges:
