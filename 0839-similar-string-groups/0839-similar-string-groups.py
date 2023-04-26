@@ -33,10 +33,10 @@ class Solution:
             if p1 != p2:
                 if rank[p1] <= rank[p2]:
                     parents[p1] = p2
-                    rank[p1] += rank[p2]
+                    rank[p2] += rank[p1]
                 else:
                     parents[p2] = p1
-                    rank[p2] += rank[p1]
+                    rank[p1] += rank[p2]
             
             
         for i in range(len(strs)):
