@@ -36,7 +36,7 @@ class Solution:
                     rank[p1] += rank[p2]
                 else:
                     parents[p2] = p1
-                    rank[p2] += p1
+                    rank[p2] += rank[p1]
             
             
         for i in range(len(strs)):
